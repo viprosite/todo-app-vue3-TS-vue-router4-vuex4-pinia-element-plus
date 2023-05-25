@@ -3,3 +3,9 @@ export interface IToDo {
   name: string;
   status: boolean;
 }
+
+export interface IPayload {
+  id?: number;
+  currentPage?: string;
+  todo?: string;
+}

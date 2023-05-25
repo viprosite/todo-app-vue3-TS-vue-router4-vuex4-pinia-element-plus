@@ -7,20 +7,22 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex';
+import { useAppStore } from '@/store';
 import { useRouter } from 'vue-router'
+import { FINISH, DELETE, SWITCH, ADD } from "@/store/mutationTypes";
 
-const store = useStore()
+
+const store = useAppStore()
 let todo = ref('')
 
 const router = useRouter()
 const handleAdd = (): void => {
     if (todo.value.trim().length > 0) {
-        store.commit({
+        store[ADD]({
             type: 'ADD',
             todo
         })
-        store.commit({
+        store[SWITCH]({
             type: 'SWITCH',
             currentPage: 'home'
         })

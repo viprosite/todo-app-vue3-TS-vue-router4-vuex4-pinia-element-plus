@@ -11,18 +11,17 @@
 <script setup lang="ts">
 import appTitle from '@/components/appTitle.vue'
 import appTabBar from '@/components/appTabBar.vue'
+import { FINISH, DELETE, SWITCH, ADD } from "@/store/mutationTypes";
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-const store = useStore()
-const currentPage = computed(() => store.state.currentPage)
-
-
+import { useAppStore } from '@/store';
+const store = useAppStore()
 const router = useRouter()
 
+let currentPage = computed(() => store.currentPage)
 const handleSwitchOp = (): void => {
   router.push({ path: currentPage.value == 'home' ? '/add' : '/' })
-  store.commit({
+  store[SWITCH]({
     type: 'SWITCH',
     currentPage: currentPage.value == 'home' ? 'add' : 'home'
   })

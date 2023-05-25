@@ -14,21 +14,21 @@
 </template>
 
 <script lang="ts" setup>
+import { FINISH, DELETE, SWITCH, ADD } from "@/store/mutationTypes";
+import { useAppStore } from '@/store';
+import { storeToRefs } from 'pinia';
+const store = useAppStore()
 
-
-import { computed } from 'vue'
-import { useStore } from 'vuex';
-const store = useStore()
-const todoList = computed(() => store.state.todoList)
+const { todoList } = storeToRefs(store)
 
 const handleFinish: (id: number) => void = (id: number): void => {
-  store.commit({
+  store[FINISH]({
     type: 'FINISH',
     id
   });
 }
 const handleDelete: (id: number) => void = (id: number): void => {
-  store.commit({
+  store[DELETE]({
     type: 'DELETE',
     id
   })
