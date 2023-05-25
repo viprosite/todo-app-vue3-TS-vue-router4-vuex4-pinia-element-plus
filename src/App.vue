@@ -1,30 +1,33 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <appTitle :title="currentPage == 'home' ? 'ToDo App' : 'Add ToDo'"></appTitle>
+  <transition name="el-fade-in-linear">
+    <router-view />
+  </transition>
+  <appTabBar :btn="currentPage == 'home' ? 'To Add' : 'To List'" @click="handleSwitchOp"></appTabBar>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+
+
+<script setup lang="ts">
+import appTitle from '@/components/appTitle.vue'
+import appTabBar from '@/components/appTabBar.vue'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+const store = useStore()
+const currentPage = computed(() => store.state.currentPage)
+
+
+const router = useRouter()
+
+const handleSwitchOp = (): void => {
+  router.push({ path: currentPage.value == 'home' ? '/add' : '/' })
+  store.commit({
+    type: 'SWITCH',
+    currentPage: currentPage.value == 'home' ? 'add' : 'home'
+  })
 }
 
-nav {
-  padding: 30px;
+</script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
