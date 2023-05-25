@@ -18,7 +18,10 @@ import { useAppStore } from '@/store';
 const store = useAppStore()
 const router = useRouter()
 
+// 当前页面 （也可通过url判断）
 let currentPage = computed(() => store.currentPage)
+
+// 切换页面
 const handleSwitchOp = (): void => {
   router.push({ path: currentPage.value == 'home' ? '/add' : '/' })
   store[SWITCH]({

@@ -21,12 +21,14 @@ const store = useAppStore()
 
 const { todoList } = storeToRefs(store)
 
+// 切换完成状态
 const handleFinish: (id: number) => void = (id: number): void => {
   store[FINISH]({
     type: 'FINISH',
     id
   });
 }
+// 删除
 const handleDelete: (id: number) => void = (id: number): void => {
   store[DELETE]({
     type: 'DELETE',

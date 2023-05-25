@@ -16,6 +16,8 @@ const store = useAppStore()
 let todo = ref('')
 
 const router = useRouter()
+
+// 添加
 const handleAdd = (): void => {
     if (todo.value.trim().length > 0) {
         store[ADD]({
